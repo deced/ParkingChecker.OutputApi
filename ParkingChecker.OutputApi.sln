@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingChecker.OutputApi", "ParkingChecker.OutputApi\ParkingChecker.OutputApi.csproj", "{7FE56EA4-CBA4-46DC-897A-D9E089189494}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lexily.ManagementWarehouseService", "C:\Users\Max\Desktop\555\N_L\lexily.management-warehouse-api\Lexily.ManagementWarehouseService\Lexily.ManagementWarehouseService.csproj", "{41F6A867-D43C-46C8-B355-3DD605EC237D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{7FE56EA4-CBA4-46DC-897A-D9E089189494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE56EA4-CBA4-46DC-897A-D9E089189494}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FE56EA4-CBA4-46DC-897A-D9E089189494}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41F6A867-D43C-46C8-B355-3DD605EC237D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41F6A867-D43C-46C8-B355-3DD605EC237D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41F6A867-D43C-46C8-B355-3DD605EC237D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41F6A867-D43C-46C8-B355-3DD605EC237D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
