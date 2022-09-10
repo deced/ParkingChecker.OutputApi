@@ -10,7 +10,7 @@ namespace ParkingChecker.OutputApi.Controllers
     [Route("[controller]/[action]")]
     public class ParkingController : Controller
     {
-        private readonly IParkingService _parkingService;
+     //   private readonly IParkingService _parkingService;
 
         // public ParkingController(IParkingService parkingService)
         // {
@@ -18,23 +18,29 @@ namespace ParkingChecker.OutputApi.Controllers
         // }
 
         [HttpGet]
-        public async Task<FilterParkingsResponse> Filter([FromQuery] string filter, [FromQuery] int skip,
-            [FromQuery] int top)
+        public string HealthCheck()
         {
-            return await _parkingService.Filter(filter, skip, top);
+            return "working";
         }
 
-        [HttpGet]
-        public async Task<GetAllParkingsResponse> GetAll()
-        {
-            return await _parkingService.GetAll();
-        }
-
-        [HttpGet]
-        public async Task<GetParkingByIdResponse> GetById(string id)
-        {
-            return await _parkingService.GetById(id);
-        }
+        // [HttpGet]
+        // public async Task<FilterParkingsResponse> Filter([FromQuery] string filter, [FromQuery] int skip,
+        //     [FromQuery] int top)
+        // {
+        //     return await _parkingService.Filter(filter, skip, top);
+        // }
+        //
+        // [HttpGet]
+        // public async Task<GetAllParkingsResponse> GetAll()
+        // {
+        //     return await _parkingService.GetAll();
+        // }
+        //
+        // [HttpGet]
+        // public async Task<GetParkingByIdResponse> GetById(string id)
+        // {
+        //     return await _parkingService.GetById(id);
+        // }
 
         [HttpGet]
         public List<ParkingModel> GetListOfParking()
