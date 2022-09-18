@@ -1,4 +1,5 @@
-﻿using MongoDbGenericRepository.Attributes;
+﻿using System;
+using MongoDbGenericRepository.Attributes;
 using ParkingChecker.OutputApi.Base.DataAccess;
 
 namespace ParkingChecker.OutputApi.Entities
@@ -7,5 +8,7 @@ namespace ParkingChecker.OutputApi.Entities
     public class Parking : Document
     {
         public string InputFile { get; set; }
+        public string name { get; set; }
+        public string parkingId { get; set; }
     }
 }

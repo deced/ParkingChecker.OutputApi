@@ -1,8 +1,10 @@
+using Lexily.ManagementWarehouseService.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ParkingChecker.OutputApi.Base.DataAccess;
 
 namespace ParkingChecker.OutputApi
 {
@@ -18,7 +20,8 @@ namespace ParkingChecker.OutputApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            DependencyStartup.Configure(services,Configuration);
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>

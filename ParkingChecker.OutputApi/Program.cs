@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using ParkingChecker.OutputApi.Controllers;
-using ParkingChecker.OutputApi.Services;
 
 namespace ParkingChecker.OutputApi
 {

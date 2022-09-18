@@ -10,22 +10,10 @@ namespace ParkingChecker.OutputApi.Base.DataAccess
         [BsonId]  
         [BsonRepresentation(BsonType.ObjectId)]  
         [JsonIgnore]
-        public string Id { get; set; }
+        public string _id { get; set; }
 
         [JsonIgnore]
-        public DateTime CreationDate { get; set; }
+        public DateTime creationDate { get; set; }
         
-        [JsonIgnore]
-        public bool Deleted { get; set; }
-        
-        [JsonIgnore]
-        public DateTime DeletionDate { get; set; }
-
-        protected Document()
-        {
-            Deleted = false;
-            DateTime now = DateTime.UtcNow;
-            CreationDate = new DateTime(now.Ticks / 100000 * 100000, now.Kind);
-        }
     }
 }

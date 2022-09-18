@@ -8,9 +8,8 @@ namespace ParkingChecker.OutputApi.Base.DataAccess
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        string Id { get; set; }
-        DateTime CreationDate { get; set; }
-        bool Deleted { get; set; }
-        DateTime DeletionDate { get; set; }
+        string _id { get; set; }
+        DateTime creationDate { get; set; }
+        
     }
 }

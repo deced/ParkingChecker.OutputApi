@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingChecker.OutputApi.Models.ParkingSpotModels;
-using ParkingChecker.OutputApi.Services;
 using System.Threading.Tasks;
 
 namespace ParkingChecker.OutputApi.Controllers

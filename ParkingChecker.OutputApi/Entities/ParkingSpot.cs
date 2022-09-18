@@ -1,4 +1,5 @@
-﻿using MongoDbGenericRepository.Attributes;
+﻿using System;
+using MongoDbGenericRepository.Attributes;
 using ParkingChecker.OutputApi.Base.DataAccess;
 
 namespace ParkingChecker.OutputApi.Entities
@@ -6,12 +7,14 @@ namespace ParkingChecker.OutputApi.Entities
     [CollectionName("parking_spot")]
     public class ParkingSpot : Document
     {
-        public int X1 { get; set; }
-        public int Y1 { get; set; }
-        public int X2 { get; set; }
-        public int Y2 { get; set; }
-        public string ParkingId { get; set; }
-        public int VerificationCount { get; set; }
-        public bool Available { get; set; }
+        public int x1 { get; set; }
+        public int y1 { get; set; }
+        public int x2 { get; set; }
+        public int y2 { get; set; }
+        public int verificationCount { get; set; }
+        public bool available { get; set; }
+        public bool approved { get; set; }
+        public DateTime lastUpdate { get; set; }
+        public string parkingId { get; set; }
     }
 }

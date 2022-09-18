@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ParkingChecker.OutputApi.Models.ParkingModels;
-using ParkingChecker.OutputApi.Services;
 using System.Threading.Tasks;
+using ParkingChecker.OutputApi.Base.DataAccess;
 using ParkingChecker.OutputApi.Entities;
 
 namespace ParkingChecker.OutputApi.Controllers
@@ -10,8 +12,8 @@ namespace ParkingChecker.OutputApi.Controllers
     [Route("[controller]/[action]")]
     public class ParkingController : Controller
     {
-     //   private readonly IParkingService _parkingService;
-
+        // private readonly IParkingService _parkingService;
+        //
         // public ParkingController(IParkingService parkingService)
         // {
         //     _parkingService = parkingService;
@@ -41,35 +43,63 @@ namespace ParkingChecker.OutputApi.Controllers
         // {
         //     return await _parkingService.GetById(id);
         // }
+        private readonly IBaseRepository<Parking> _parkingRepository;
+        private readonly IBaseRepository<ParkingSpot> _parkingSpotRepository;
+        private readonly IBaseRepository<OutputImage> _outputImageRepository;
+
+        public ParkingController(IBaseRepository<Parking> parkingRepository,
+            IBaseRepository<ParkingSpot> parkingSpotRepository, IBaseRepository<OutputImage> outputImageRepository)
+        {
+            _parkingRepository = parkingRepository;
+            _parkingSpotRepository = parkingSpotRepository;
+            _outputImageRepository = outputImageRepository;
+        }
 
         [HttpGet]
-        public List<ParkingModel> GetListOfParking()
+        public async Task<List<ParkingModel>> GetListOfParking()
         {
-            ParkingModel parkingModel1 = new ParkingModel();
-            parkingModel1.Name = "ПАРКОВКА1";
-            parkingModel1.Id = "7474774848bdgw938d720d";
-            parkingModel1.AvailableSpotsCount = 50;
-           
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
-            ParkingModel parkingModel2 = new ParkingModel();
-            parkingModel2.Name = "ПАРКОВКА2";
-            parkingModel2.Id = "1736g363v6f8f8f8f8f88";
-            parkingModel2.AvailableSpotsCount = 20;
+            var parkings = (await _parkingRepository.GetAllAsync()).ToList();
 
             List<ParkingModel> listOfParkingModel = new List<ParkingModel>();
-            listOfParkingModel.Add(parkingModel1);
-            listOfParkingModel.Add(parkingModel2);
+            for (int i = 0; i < parkings.Count; i++)
+            {
+                ParkingModel parkingModel = new ParkingModel();
+                parkingModel.Id = parkings[i].parkingId;
+                parkingModel.Name = parkings[i].name;
+
+                parkingModel.AvailableSpotsCount =
+                    (await _parkingSpotRepository.FilterByAsync(spot =>
+                        spot.parkingId == parkingModel.Id && spot.available == true)).Count();
+                listOfParkingModel.Add(parkingModel);
+            }
+
             return listOfParkingModel;
         }
 
-        [HttpGet( "{parkingId}")]
-        public ParkingInfoModel GetDataAboutAvailableSpots(string parkingId )
+        [HttpGet("{parkingId}")]
+        public async Task<ParkingInfoModel> GetDataAboutAvailableSpots(string parkingId)
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+            var parking = (await _parkingRepository.FindOneAsync(parking => parking.parkingId == parkingId));
+            if (parking == null)
+                return null;
             ParkingInfoModel parkingInfoModel = new ParkingInfoModel();
-            parkingInfoModel.ParkingName = "Парковка 1";
-            parkingInfoModel.AvailableSpotsCount = 10;
-            parkingInfoModel.ImagePath =
-                "https://hsto.org/r/w1560/getpro/habr/upload_files/a20/0b2/05b/a200b205b18e4f4cefd3dfb8469c4cea.jpg";
+            parkingInfoModel.ParkingName = parking.name;
+            parkingInfoModel.AvailableSpotsCount =
+                (await _parkingSpotRepository.FilterByAsync(spot =>
+                    spot.parkingId == parkingId && spot.available == true)).Count();
+
+            var imagePath = (await _outputImageRepository.FindOneAsync(image => image.parkingId == parkingId))
+                ?.fullPath;
+            if (imagePath != null)
+            {
+                byte[] imageArray = System.IO.File.ReadAllBytes(imagePath);
+                string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                parkingInfoModel.Image = base64ImageRepresentation;
+            }
             return parkingInfoModel;
         }
     }

@@ -95,15 +95,15 @@ namespace ParkingChecker.OutputApi.Base.DataAccess
             return Task.Run(() => { return _collection.Find(filterExpression).Limit(take).ToEnumerable(); });
         }
 
-        public async Task<IEnumerable<TDocument>> FindManySortAndUpdateAsync(Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, object>> sortObject, UpdateDefinition<TDocument> updateDefinition,
-            int count)
-        {
-            var documents = _collection.Find(filterExpression).SortBy(sortObject).Limit(count).ToEnumerable();
-            var filter = Builders<TDocument>.Filter.In(x => x.Id, documents.Select(x => x.Id));
-            await _collection.UpdateManyAsync(filter, updateDefinition);
-
-            return documents;
-        }
+        // public async Task<IEnumerable<TDocument>> FindManySortAndUpdateAsync(Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, object>> sortObject, UpdateDefinition<TDocument> updateDefinition,
+        //     int count)
+        // {
+        //     var documents = _collection.Find(filterExpression).SortBy(sortObject).Limit(count).ToEnumerable();
+        //     var filter = Builders<TDocument>.Filter.In(x => x.Id, documents.Select(x => x.Id));
+        //     await _collection.UpdateManyAsync(filter, updateDefinition);
+        //
+        //     return documents;
+        // }
 
         public virtual Task<long> FilterCountByAsync(
             Expression<Func<TDocument, bool>> filterExpression)
@@ -175,14 +175,14 @@ namespace ParkingChecker.OutputApi.Base.DataAccess
             return Task.Run(() => _collection.Find(filterExpression).FirstOrDefaultAsync());
         }
 
-        public virtual Task<TDocument> FindByIdAsync(string id)
-        {
-            return Task.Run(() =>
-            {
-                var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, id);
-                return _collection.Find(filter).SingleOrDefaultAsync();
-            });
-        }
+        // public virtual Task<TDocument> FindByIdAsync(string id)
+        // {
+        //     return Task.Run(() =>
+        //     {
+        //         var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, id);
+        //         return _collection.Find(filter).SingleOrDefaultAsync();
+        //     });
+        // }
 
         public async Task<long> GetCountAsync(IEnumerable<FilterDefinition<TDocument>> filterDefinitions)
         {

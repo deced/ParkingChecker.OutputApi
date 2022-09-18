@@ -26,8 +26,8 @@ namespace ParkingChecker.OutputApi.Base.DataAccess
            Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, object>> sortObject, int skip, int top);
         Task<IEnumerable<TDocument>> SortByDescendingLimitFilterByAsync(
             Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, object>> sortObject, int skip, int top);
-        Task<IEnumerable<TDocument>> FindManySortAndUpdateAsync(
-            Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, object>> sortObject, UpdateDefinition<TDocument> updateDefinition, int count);
+        //Task<IEnumerable<TDocument>> FindManySortAndUpdateAsync(
+          //  Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, object>> sortObject, UpdateDefinition<TDocument> updateDefinition, int count);
         Task<long> FilterCountByAsync(
             Expression<Func<TDocument, bool>> filterExpression);
         Task<IEnumerable<TDocument>> GetAllAsync();
@@ -37,7 +37,7 @@ namespace ParkingChecker.OutputApi.Base.DataAccess
 
         Task<TDocument> FindOneAsync(Expression<Func<TDocument, bool>> filterExpression);
 
-        Task<TDocument> FindByIdAsync(string id);
+       // Task<TDocument> FindByIdAsync(string id);
         Task<IEnumerable<TDocument>> FilterWithSkipAsync(IEnumerable<FilterDefinition<TDocument>> filterDefinitions, int skip, int count, SortDefinition<TDocument> sortDefinition = null);
 
         Task<long> GetCountAsync(IEnumerable<FilterDefinition<TDocument>> filterDefinitions);
