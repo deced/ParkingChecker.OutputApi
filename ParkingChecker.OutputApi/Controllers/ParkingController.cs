@@ -101,6 +101,7 @@ namespace ParkingChecker.OutputApi.Controllers
                 parkingInfoModel.Image = base64ImageRepresentation;
             }
             return parkingInfoModel;
+            
         }
     }
 }
