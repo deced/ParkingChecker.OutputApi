@@ -85,7 +85,7 @@ namespace ParkingChecker.OutputApi.Controllers
 
             var parking = (await _parkingRepository.FindOneAsync(parking => parking.parkingId == parkingId));
             if (parking == null)
-                return null;
+                return  new ParkingInfoModel();
             ParkingInfoModel parkingInfoModel = new ParkingInfoModel();
             parkingInfoModel.ParkingName = parking.name;
             parkingInfoModel.AvailableSpotsCount =
@@ -100,6 +100,8 @@ namespace ParkingChecker.OutputApi.Controllers
                 string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                 parkingInfoModel.Image = base64ImageRepresentation;
             }
+            else
+                parkingInfoModel.Image = "/root/default.png";
             return parkingInfoModel;
             
         }
