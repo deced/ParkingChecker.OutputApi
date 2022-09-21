@@ -94,14 +94,14 @@ namespace ParkingChecker.OutputApi.Controllers
 
             var imagePath = (await _outputImageRepository.FindOneAsync(image => image.parkingId == parkingId))
                 ?.fullPath;
+            
             if (imagePath != null)
             {
                 byte[] imageArray = System.IO.File.ReadAllBytes(imagePath);
                 string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                 parkingInfoModel.Image = base64ImageRepresentation;
             }
-            else
-                parkingInfoModel.Image = "/root/default.png";
+
             return parkingInfoModel;
             
         }
